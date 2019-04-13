@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		646137B92261B6A800AEC725 /* ImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 646137B82261B6A800AEC725 /* ImageViewController.m */; };
 		6461CF0C2254E43B006F029D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6461CF0B2254E43B006F029D /* AppDelegate.m */; };
 		6461CF0F2254E43B006F029D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6461CF0E2254E43B006F029D /* ViewController.m */; };
 		6461CF122254E43B006F029D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6461CF102254E43B006F029D /* Main.storyboard */; };
@@ -16,6 +17,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		646137B82261B6A800AEC725 /* ImageViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImageViewController.m; sourceTree = "<group>"; };
+		646137BA2261B6C400AEC725 /* ImageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageViewController.h; sourceTree = "<group>"; };
 		6461CF072254E43B006F029D /* Demo1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo1.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6461CF0A2254E43B006F029D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		6461CF0B2254E43B006F029D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -67,6 +70,8 @@
 				6461CF152254E43D006F029D /* LaunchScreen.storyboard */,
 				6461CF182254E43D006F029D /* Info.plist */,
 				6461CF192254E43D006F029D /* main.m */,
+				646137B82261B6A800AEC725 /* ImageViewController.m */,
+				646137BA2261B6C400AEC725 /* ImageViewController.h */,
 			);
 			path = Demo1;
 			sourceTree = "<group>";
@@ -143,6 +148,7 @@
 			files = (
 				6461CF0F2254E43B006F029D /* ViewController.m in Sources */,
 				6461CF1A2254E43D006F029D /* main.m in Sources */,
+				646137B92261B6A800AEC725 /* ImageViewController.m in Sources */,
 				6461CF0C2254E43B006F029D /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
