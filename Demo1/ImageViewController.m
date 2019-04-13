@@ -38,26 +38,51 @@
     
     NSString *urlPath = [array objectAtIndex:index-1];
     NSURL *url = [NSURL URLWithString:urlPath];
-    NSData *imageData = [NSData dataWithContentsOfURL:url];
-    NSLog(@"imageData url:%@,length:%zd", url, imageData.length);
-
     
-    UIImage *image = [UIImage imageWithData:imageData];
-    self.imageView.image = image;
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration ephemeralSessionConfiguration];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
+    NSURLSessionDownloadTask *task = [session downloadTaskWithRequest:request completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        NSLog(@"request success");
+        if(!error) {
+            NSData *imageData = [NSData dataWithContentsOfFile:location];
+            UIImage *image = [UIImage imageWithData:imageData];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.imageView.image = image;
+                
+                if(!self.iconView) {
+                    self.iconView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, image.size.width/4, image.size.height/4)];
+                }
+                self.iconView.image = image;
+                self.iconView.backgroundColor = UIColor.blueColor;
+                self.scrollView.contentSize = CGSizeMake(image.size.width/4, image.size.height/4);
+                [self.scrollView addSubview:self.iconView];
+                
+                //按住option后可以在模拟器上缩放
+                self.scrollView.minimumZoomScale = 0.3;
+                self.scrollView.maximumZoomScale = 2.0;
+                self.scrollView.delegate = self;
+                
+                [self.progressView setHidden:YES];
+            });
+        } else {
+            NSLog(@"request error:%@", error);
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"title" message:[NSString stringWithFormat:@"请求图片错误:%@",error] preferredStyle:UIAlertControllerStyleAlert];
+            [alertController addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                 [self.progressView setHidden:YES];
+            }]];
+            [self presentViewController:alertController animated:YES completion:nil];
+        }
+    }];
     
-    if(!self.iconView) {
-        self.iconView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, image.size.width/4, image.size.height/4)];
-    }
-    self.iconView.image = image;
-    self.iconView.backgroundColor = UIColor.blueColor;
-    self.scrollView.contentSize = CGSizeMake(image.size.width/4, image.size.height/4);
-    [self.scrollView addSubview:self.iconView];
-    
-    //按住option后可以在模拟器上缩放
-    self.scrollView.minimumZoomScale = 0.3;
-    self.scrollView.maximumZoomScale = 2.0;
-    self.scrollView.delegate = self;
-    
+    NSLog(@"request task");
+    [task resume];
+//    NSData *imageData = [NSData dataWithContentsOfURL:url];
+//    NSLog(@"imageData url:%@,length:%zd", url, imageData.length);
+//
+//
+//    UIImage *image = [UIImage imageWithData:imageData];
     
     
 }
